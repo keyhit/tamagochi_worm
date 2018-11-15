@@ -4,13 +4,64 @@
   <title></title>
 </head>
 <body>
-  <ul>
+<!--   <ul>
     <li><a href="/">Index</a></li>
     <li><a href="/worm">Worm</a></li>
-  </ul>
+  </ul> -->
+  <form action="worm" method="post">
+  <label for="name">Input name</label>
+  <input type="text" name="name" id="name">
+  <input type="submit" value="Name">
+</form>
+
+
+<ul>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="eat" value="1">
+      <input type="submit" value="Eat">
+    </form>
+  </li>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="sleep" value="4">
+      <input type="submit" value="Sleep">
+    </form>
+  </li>
+    <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="crawl" value="1">
+      <input type="submit" value="Crawl">
+    </form>
+  </li>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="trample" value="0">
+      <input type="submit" value="Trample">
+    </form>
+  </li>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="trample" value="1">
+      <input type="submit" value="Resurrect">
+    </form>
+  </li>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="on_hook" value="-10">
+      <input type="submit" value="On hook">
+    </form>
+  </li>
+  <li>
+    <form action="/worm" method="post">
+      <input type="hidden" name="off_hook" value="2">
+      <input type="submit" value="Off hook">
+    </form>
+  </li>
+</ul>
   <h1>Worm <%= worm_name %> </h1>
   <h3>His helth <%= helth%> units</h3>
-  <%= cookies_arr_to_hash %>
-  <%= template %>
+  <h3><%= message %></h3>
+  <% cookies_arr_to_hash %>
 </body>
 </html>
