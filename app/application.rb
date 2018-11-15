@@ -6,7 +6,8 @@ require './app/helpers/helper_worm'
 
 class Application
   def self.call(env)
+    resp = Rack::Response.new
     req = Rack::Request.new(env)
-    Worm.layout(req)
+    Worm.layout(req, resp)
   end
 end

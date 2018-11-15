@@ -1,16 +1,18 @@
 class Worm
   attr_accessor :req
-  def self.layout(req)
-    # binding.pry
+  def self.layout(req, resp)
     case req.path
     when '/'
       template = index
-    when '/worm' || '/trample_worm'
+    when '/worm'
       template = worm
     when '/trample_worm'
       template = worm
+    else
+      template = error
     end
-    head_layout(req, template)
+
+    head_layout(req, resp, template)
   end
 
   def self.index
@@ -19,5 +21,9 @@ class Worm
 
   def self.worm
     template_worm
+  end
+
+  def self.error
+    template_error
   end
 end
