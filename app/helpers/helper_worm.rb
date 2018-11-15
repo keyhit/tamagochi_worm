@@ -1,13 +1,12 @@
 def head_layout(req, resp, template)
-
-
   resp.set_header('Content-Type', 'text/html')
 
-  helth_value = 10
   if req.params['name']
     resp.set_cookie('name', req.params['name'])
+    resp.set_cookie('helth', 10)
   elsif req.params['eat']
     resp.set_cookie('eat', req.params['eat'])
+    # resp.set_cookie('helth', req.params['eat'].to_i)
   elsif req.params['sleep']
     resp.set_cookie('sleep', req.params['sleep'])
   elsif req.params['crawl']
@@ -16,14 +15,22 @@ def head_layout(req, resp, template)
     resp.set_cookie('trample', req.params['trample'])
   elsif req.params['on_hook']
     resp.set_cookie('on_hook', req.params['on_hook'])
+    resp.set_cookie('helth', 10 - req.params['on_hook'].to_i)
   elsif req.params['off_hook']
     resp.set_cookie('off_hook', req.params['off_hook'])
-  else
-    # resp.set_cookie_header = "helth=#{helth_value.to_s}"
   end
 
-# # binding.pry
-cookies = 1
+  cookies = req.env['HTTP_COOKIE']
+  if cookies
+    cookies_to_array = cookies.gsub(/[=;]/, ' ').split(' ')
+    cookies_arr_to_hash = Hash[*cookies_to_array]
+  else
+    cookies_arr_to_hash = 'No cookies'
+  end
+
+  cookies_arr_to_hash['name'] ? worm_name = cookies_arr_to_hash['name'] : worm_name = 'Input worm name in index page!!!!'
+  cookies_arr_to_hash['helth'] ? helth = cookies_arr_to_hash['helth'] : helth = 'no Helth'
+
 
   file = File.read('./app/views/layout.html.erb')
   [200, resp.header, [ERB.new(file).result(binding)]]
